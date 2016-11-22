@@ -30,6 +30,11 @@ module.exports = function proxyMiddleware(options) {
       }
     }
 
+    // Check method match if defined
+    if (typeof options.method === 'string' && options.method !== req.method) {
+      return next();
+    }
+
     //options for this request
     var opts = extend({}, options);
     if (url && url.charAt(0) === '?') { // prevent /api/resource/?offset=0
